@@ -1,4 +1,4 @@
-user_id,name,item,amount,category_id,purchased_quantity,purchased_date
+user_id,name,item_name,price,category_id,quantity,purchased_date
 1004,Donna Martin,TV,199.95,14,1,4/4/2020
 1004,Donna Martin,Vaccum,95.12,15,2,5/12/2020
 1003,Bobby Bradley,Cup,12.76,44,1,5/13/2020
