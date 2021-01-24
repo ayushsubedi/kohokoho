@@ -25,8 +25,11 @@ class anon(object):
 def cli(csv):
     df = pd.read_csv(csv)
     koho_df = anon(df)
-    koho_df.anon_name('name')
+    click.echo('Column names: '+str(list(df)))
+    name_col = click.prompt('Enter column which stores names:', type=str)
+    koho_df.anon_name(name_col)
     click.echo(koho_df.anon_df().head())
+    
     
 
 if __name__ == '__main__':
