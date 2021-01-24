@@ -71,31 +71,39 @@ def cli(csv):
     koho_df = anon(df)
     click.echo('Columns info: '+str(df.info()))
     # name
-    name_col = click.prompt('Enter column/s which stores names, separated by comma', type=str)
+    name_col = click.prompt(
+        'Enter column/s which stores names, separated by comma',
+        type=str)
     for col in name_col.split(","):
         koho_df.anon_name(col.strip())
     # id
-    id_col = click.prompt('Enter column/s which stores id, separated by comma', type=str)
+    id_col = click.prompt(
+        'Enter column/s which stores id, separated by comma',
+        type=str)
     for col in id_col.split(","):
         koho_df.anon_id(col.strip())
     # continuous values
     continuous_col = click.prompt(
-        'Enter column/s which stores continuous numbers, separated by comma', type=str)
+        'Enter column/s which stores continuous numbers, separated by comma',
+        type=str)
     for col in continuous_col.split(","):
         koho_df.anon_continuous_num(col)
     # discrete_col
     discrete_col = click.prompt(
-        'Enter column/s which stores discrete numbers, separated by comma', type=str)
+        'Enter column/s which stores discrete numbers, separated by comma',
+        type=str)
     for col in discrete_col.split(","):
         koho_df.anon_discrete_num(col)
     # category
     category_col = click.prompt(
-        'Enter column/s which stores categorical values, separated by comma', type=str)
+        'Enter column/s which stores categorical values, separated by comma',
+        type=str)
     for col in category_col.split(","):
         koho_df.anon_category(col)
     # date
     date_col = click.prompt(
-        'Enter column which stores dates, separated by comma', type=str)
+        'Enter column which stores dates, separated by comma',
+        type=str)
     for col in date_col.split(","):
         koho_df.anon_date(date_col)
     # original dataset
