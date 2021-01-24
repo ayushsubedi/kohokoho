@@ -8,6 +8,7 @@ fake = Faker('en')
 
 class anon(object):
     def __init__(self, df):
+        self.original = df
         self.df = df
 
     def anon_name(self, col):
@@ -56,6 +57,9 @@ class anon(object):
     def anon_df(self):
         return self.df
 
+    def _df(self):
+        return self.original
+
 
 @click.command()
 @click.option(
@@ -66,23 +70,49 @@ def cli(csv):
     df = pd.read_csv(csv)
     koho_df = anon(df)
     click.echo('Columns info: '+str(df.info()))
-    name_col = click.prompt('Enter column which stores names', type=str)
-    koho_df.anon_name(name_col)
-    id_col = click.prompt('Enter column which stores id', type=str)
-    koho_df.anon_id(id_col)
+    # name
+    name_col = click.prompt(
+        'Enter column/s which stores names, separated by comma',
+        type=str)
+    for col in name_col.split(","):
+        koho_df.anon_name(col.strip())
+    # id
+    id_col = click.prompt(
+        'Enter column/s which stores id, separated by comma',
+        type=str)
+    for col in id_col.split(","):
+        koho_df.anon_id(col.strip())
+    # continuous values
     continuous_col = click.prompt(
-        'Enter column which stores continuous numbers', type=str)
-    koho_df.anon_continuous_num(continuous_col)
+        'Enter column/s which stores continuous numbers, separated by comma',
+        type=str)
+    for col in continuous_col.split(","):
+        koho_df.anon_continuous_num(col)
+    # discrete_col
     discrete_col = click.prompt(
-        'Enter column which stores discrete numbers', type=str)
-    koho_df.anon_discrete_num(discrete_col)
+        'Enter column/s which stores discrete numbers, separated by comma',
+        type=str)
+    for col in discrete_col.split(","):
+        koho_df.anon_discrete_num(col)
+    # category
     category_col = click.prompt(
-        'Enter column which stores categorical values', type=str)
-    koho_df.anon_category(category_col)
+        'Enter column/s which stores categorical values, separated by comma',
+        type=str)
+    for col in category_col.split(","):
+        koho_df.anon_category(col)
+    # date
     date_col = click.prompt(
-        'Enter column which stores dates', type=str)
-    koho_df.anon_date(date_col)
+        'Enter column which stores dates, separated by comma',
+        type=str)
+    for col in date_col.split(","):
+        koho_df.anon_date(date_col)
+    # original dataset
+    click.echo('Original dataset')
+    click.echo(koho_df._df().head())
+    # final dataset
+    click.echo('Kohoko dataset')
     click.echo(koho_df.anon_df().head())
+
 
 
 if __name__ == '__main__':
