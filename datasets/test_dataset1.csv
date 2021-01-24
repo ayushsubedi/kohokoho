@@ -1,0 +1,21 @@
+user_id,name,item,amount,category_id,purchased_quantity,purchased_date
+1004,Donna Martin,TV,199.95,14,1,4/4/2020
+1004,Donna Martin,Vaccum,95.12,15,2,5/12/2020
+1003,Bobby Bradley,Cup,12.76,44,1,5/13/2020
+1011,Austin Thomas,Plate,5.55,156,1,5/14/2020
+1000,Jonathan Medina,Lotion,4.44,23,2,5/15/2020
+1000,Jonathan Medina,Toothbrush,5.96,123,1,5/16/2020
+1019,Brandon Beasley,Sanitizer,2.23,12,3,5/17/2020
+1011,Austin Thomas,Wine,15.67,122,1,4/4/2020
+1014,Susan Morales,Yoga mat,45.53,1212,2,4/5/2020
+1001,Rachael Massey,Beer,2.45,42,4,4/6/2020
+1005,Ross Strickland,Coffee,8.45,356,5,4/7/2020
+1014,Susan Morales,Lotion,4.44,23,3,4/8/2020
+1020,Jennifer Cox,Coffee,8.45,356,4,4/9/2020
+1001,Danny Lynn DDS,TV,199.95,14,2,4/10/2020
+1019,Brandon Beasley,Vaccum,95.12,15,6,5/6/2020
+1006,Ashley Nichols,Sanitizer,2.23,12,1,5/7/2020
+1015,Angela Oneill,Wine,15.67,122,2,5/8/2020
+1009,Cody Moreno,Plate,5.55,156,4,5/9/2020
+1005,Douglas Atkinson,TV,199.95,14,1,5/10/2020
+1016,Ellen Mccarthy,Vaccum,95.12,15,1,5/11/2020
