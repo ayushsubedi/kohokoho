@@ -1,4 +1,5 @@
 import click
+import string
 import random
 import pandas as pd
 from faker import Faker
@@ -54,15 +55,12 @@ class anon(object):
             end_date=end_date) for i in range(self.df.shape[0])]
         self.df[col] = map_list
 
-    def anon_email(self, name_col, email_col):
-        if name_col == '':
-            unique = self.df[email_col].unique()
-            map_dict = {_: fake.email() for _ in unique}
-            self.df[email_col] = self.df[email_col].map(map_dict)
-        else:
-            self.df[email_col] = (
-                self.df[name_col].str.replace(
-                    '\s+', '.') + '@fakeemail.com').str.lower()
+    def anon_email(self, col):
+        unique = self.df[col].unique()
+        map_dict = {_: (''.join(random.choices(
+            string.ascii_lowercase + string.digits,
+            k=12)))+'@anonemail.com' for _ in unique}
+        self.df[col] = self.df[col].map(map_dict)
 
     def anon_df(self):
         return self.df
@@ -135,7 +133,7 @@ def cli(csv):
         default='')
     if (email_col != ''):
         for col in email_col.split(","):
-            koho_df.anon_email(name_col, email_col)
+            koho_df.anon_email(email_col)
     # original dataset
     click.echo('Original dataset')
     click.echo(koho_df._df().head(10))
