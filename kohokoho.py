@@ -128,7 +128,7 @@ def cli(csv):
     if (date_col != ''):
         for col in date_col.split(","):
             koho_df.anon_date(date_col)
-    email
+    # email
     email_col = click.prompt(
         'Enter column which stores email, each column separated by a comma',
         type=str,
