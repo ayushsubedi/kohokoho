@@ -54,6 +54,16 @@ class anon(object):
             end_date=end_date) for i in range(self.df.shape[0])]
         self.df[col] = map_list
 
+    def anon_email(self, name_col, email_col):
+        if name_col == '':
+            unique = self.df[email_col].unique()
+            map_dict = {_: fake.email() for _ in unique}
+            self.df[email_col] = self.df[email_col].map(map_dict)
+        else:
+            self.df[email_col] = (
+                self.df[name_col].str.replace(
+                    '\s+', '.') + '@fakeemail.com').str.lower()
+
     def anon_df(self):
         return self.df
 
@@ -118,6 +128,14 @@ def cli(csv):
     if (date_col != ''):
         for col in date_col.split(","):
             koho_df.anon_date(date_col)
+    # email
+    email_col = click.prompt(
+        'Enter column which stores email, each column separated by a comma',
+        type=str,
+        default='')
+    if (email_col != ''):
+        for col in email_col.split(","):
+            koho_df.anon_email(name_col, email_col)
     # original dataset
     click.echo('Original dataset')
     click.echo(koho_df._df().head(10))
