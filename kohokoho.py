@@ -140,7 +140,3 @@ def cli(csv):
     # final dataset
     click.echo('Kohoko dataset')
     click.echo(koho_df.anon_df().head(10))
-
-
-if __name__ == '__main__':
-    cli()
