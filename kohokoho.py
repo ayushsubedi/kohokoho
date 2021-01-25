@@ -1,8 +1,10 @@
 import click
 import string
 import random
+import time
 import pandas as pd
 from faker import Faker
+
 
 fake = Faker('en')
 
@@ -61,6 +63,9 @@ class anon(object):
             string.ascii_lowercase + string.digits,
             k=12)))+'@anonemail.com' for _ in unique}
         self.df[col] = self.df[col].map(map_dict)
+
+    def save_anon_csv(self):
+        self.df.to_csv(str(time.time())+'kohokoho.csv', index=False)
 
     def anon_df(self):
         return self.df
@@ -140,3 +145,7 @@ def cli(csv):
     # final dataset
     click.echo('Kohoko dataset')
     click.echo(koho_df.anon_df().head(10))
+    # save anon dataset
+    if click.confirm('Do you want to save the anonymized csv?'):
+        koho_df.save_anon_csv()
+        click.echo('Done!')
