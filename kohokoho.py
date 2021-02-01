@@ -10,21 +10,48 @@ fake = Faker('en')
 
 
 class anon(object):
+    '''Initialize a df as an anon object.
+    Args:
+        df: pandas dataframe
+    Returns:
+        anon object
+    '''
     def __init__(self, df):
         self.original = df.copy()
         self.df = df
 
     def anon_name(self, col):
+        ''' Replace entries in name column with fake names generated
+        from faker.
+        Args:
+            col: column containing name data
+        Returns:
+            anon object with replaced name col
+        '''
         unique = self.df[col].unique()
         map_dict = {_: fake.name() for _ in unique}
         self.df[col] = self.df[col].map(map_dict)
 
     def anon_id(self, col):
+        ''' Replace entries in id column with fake uuid generated
+        from faker.
+        Args:
+            col: column containing id data
+        Returns:
+            anon object with replaced id col
+        '''
         unique = self.df[col].unique()
         map_dict = {_: fake.uuid4() for _ in unique}
         self.df[col] = self.df[col].map(map_dict)
 
     def anon_discrete_num(self, col):
+        ''' Replace entries in column with whole nums to random whole
+        nums in the same range.
+        Args:
+            col: column containing whole number data
+        Returns:
+            anon object with replaced discrete col
+        '''
         X_std = (self.df[col] - self.df[col].min()) / (
             self.df[col].max() - self.df[col].min())
         X_scaled = (X_std * (10 - 1) + 1)
@@ -32,6 +59,13 @@ class anon(object):
         self.df[col] = X_scaled_randomized
 
     def anon_continuous_num(self, col):
+        ''' Replace entries in columns with continuous nums to random whole
+        nums in the same range.
+        Args:
+            col: column containing continuous number data
+        Returns:
+            anon object with replaced continuous col
+        '''
         X_std = (self.df[col] - self.df[col].min()) / (
             self.df[col].max() - self.df[col].min())
         X_scaled = (X_std * (10 - 1) + 1)
@@ -39,6 +73,13 @@ class anon(object):
         self.df[col] = X_scaled_randomized
 
     def anon_category(self, col):
+        ''' Replace entries in column with categorical data to
+        anonymized category.
+        Args:
+            col: column containing categorical data
+        Returns:
+            anon object with replaced categorical col
+        '''
         unique = self.df[col].unique()
         rand_ = random.randint(0, 1000)
         map_dict = {
@@ -48,6 +89,13 @@ class anon(object):
         self.df[col] = self.df[col].map(map_dict)
 
     def anon_date(self, col):
+        ''' Replace entries in date column with random date
+        in the same range.
+        Args:
+            col: column containing date data
+        Returns:
+            anon object with replaced date col
+        '''
         self.df[col] = pd.to_datetime(
             self.df[col], infer_datetime_format=True)
         start_date = self.df[col].min()
@@ -58,6 +106,12 @@ class anon(object):
         self.df[col] = map_list
 
     def anon_email(self, col):
+        ''' Replace entries in email column with random emails.
+        Args:
+            col: column containing email
+        Returns:
+            anon object with replaced email col
+        '''
         unique = self.df[col].unique()
         map_dict = {_: (''.join(random.choices(
             string.ascii_lowercase + string.digits,
@@ -65,6 +119,7 @@ class anon(object):
         self.df[col] = self.df[col].map(map_dict)
 
     def save_anon_csv(self):
+        '''Save anon object to a csv file'''
         self.df.to_csv(str(time.time())+'kohokoho.csv', index=False)
 
     def anon_df(self):
@@ -101,7 +156,8 @@ def cli(csv):
             koho_df.anon_id(col.strip())
     # continuous values
     continuous_col = click.prompt(
-        'Enter column/s which stores continuous numbers, each column separated by a comma',
+        '''Enter column/s which stores continuous numbers,
+        each column separated by a comma''',
         type=str,
         default='')
     if (continuous_col != ''):
@@ -109,7 +165,8 @@ def cli(csv):
             koho_df.anon_continuous_num(col)
     # discrete_col
     discrete_col = click.prompt(
-        'Enter column/s which stores discrete numbers, each column separated by a comma',
+        '''Enter column/s which stores discrete numbers,
+        each column separated by a comma''',
         type=str,
         default='')
     if (discrete_col != ''):
@@ -117,7 +174,8 @@ def cli(csv):
             koho_df.anon_discrete_num(col)
     # category
     category_col = click.prompt(
-        'Enter column/s which stores categorical values, each column separated by a comma',
+        '''Enter column/s which stores categorical values,
+        each column separated by a comma''',
         type=str,
         default='')
     if (category_col != ''):
