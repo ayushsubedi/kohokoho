@@ -19,7 +19,13 @@
 
 ### Enable virtualenv
 
+Windows
+
 `.\env\Scripts\activate`
+
+Mac/Linux
+
+`source env/bin/activate`
 
 ### Install dependency packages from requirements.txt
 
